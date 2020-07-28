@@ -1,43 +1,43 @@
-# [Regular Expression]
+# [Regular Expression]()
 
 Table of Contents
 
-1. [Regular Expression Tutorial]()
-2. [Literal Characters]()
-3. [First Look at How a Regex Engine Works Internally]()
-4. [Character Classes or Character Sets]()
-5. [The Dot Matches (Almost) Any Character ]()
-6. [Start of String and End of String Anchors]()
-7. [Word Boundaries]()
-8. [Alternation with The Vertical Bar or Pipe Symbol]()
-9. [Optional Items]()
-10. [Repetition with Star and Plus]()
-11. [Use Round Brackets for Grouping]()
-12. [Named Capturing Groups]()
-13. [Unicode Regular Expressions]()
-14. [Regex Matching Modes]()
-15. [Possessive Quantifiers]()
-16. [Atomic Grouping]()
-17. [Lookahead and Lookbehind Zero-Width Assertions]()
-18. [Testing The Same Part of a String for More Than One Requirement]()
-19. [Continuing at The End of The Previous Match]()
-20. [If-Then-Else Conditionals in Regular Expressions]()
-21. [XML Schema Character Classes ]()
-22. [POSIX Bracket Expressions]()
-23. [Adding Comments to Regular Expressions]()
-24. [Free-Spacing Regular Expressions]()
+1. [Regular Expression Tutorial](https://github.com/c4arl0s/RegularExpressions#1-regular-expression-tutorial)
+2. [Literal Characters](https://github.com/c4arl0s/RegularExpressions#2-literal-characters)
+3. [First Look at How a Regex Engine Works Internally](https://github.com/c4arl0s/RegularExpressions#3-first-look-at-how-a-regex-engine-works-internally)
+4. [Character Classes or Character Sets](https://github.com/c4arl0s/RegularExpressions#4-character-classes-or-character-sets)
+5. [The Dot Matches (Almost) Any Character](https://github.com/c4arl0s/RegularExpressions#5-the-dot-matches-almost-any-character-)
+6. [Start of String and End of String Anchors](https://github.com/c4arl0s/RegularExpressions#6-start-of-string-and-end-of-string-anchors)
+7. [Word Boundaries](https://github.com/c4arl0s/RegularExpressions#7-word-boundaries)
+8. [Alternation with The Vertical Bar or Pipe Symbol](https://github.com/c4arl0s/RegularExpressions#8-alternation-with-the-vertical-bar-or-pipe-symbol)
+9. [Optional Items](https://github.com/c4arl0s/RegularExpressions#9-optional-items)
+10. [Repetition with Star and Plus](https://github.com/c4arl0s/RegularExpressions#10-repetition-with-star-and-plus)
+11. [Use Round Brackets for Grouping](https://github.com/c4arl0s/RegularExpressions#11-use-round-brackets-for-grouping)
+12. [Named Capturing Groups](https://github.com/c4arl0s/RegularExpressions#12-named-capturing-groups)
+13. [Unicode Regular Expressions](https://github.com/c4arl0s/RegularExpressions#13-unicode-regular-expressions)
+14. [Regex Matching Modes](https://github.com/c4arl0s/RegularExpressions#14-regex-matching-modes)
+15. [Possessive Quantifiers](https://github.com/c4arl0s/RegularExpressions#15-possessive-quantifiers)
+16. [Atomic Grouping](https://github.com/c4arl0s/RegularExpressions#16-atomic-grouping)
+17. [Lookahead and Lookbehind Zero-Width Assertions](https://github.com/c4arl0s/RegularExpressions#17-lookahead-and-lookbehind-zero-width-assertions)
+18. [Testing The Same Part of a String for More Than One Requirement](https://github.com/c4arl0s/RegularExpressions#18-testing-the-same-part-of-a-string-for-more-than-one-requirement)
+19. [Continuing at The End of The Previous Match](https://github.com/c4arl0s/RegularExpressions#19-continuing-at-the-end-of-the-previous-match)
+20. [If-Then-Else Conditionals in Regular Expressions](https://github.com/c4arl0s/RegularExpressions#20-if-then-else-conditionals-in-regular-expressions)
+21. [XML Schema Character Classes ](https://github.com/c4arl0s/RegularExpressions#21-xml-schema-character-classes-)
+22. [POSIX Bracket Expressions](https://github.com/c4arl0s/RegularExpressions#22-posix-bracket-expressions)
+23. [Adding Comments to Regular Expressions](https://github.com/c4arl0s/RegularExpressions#23-adding-comments-to-regular-expressions)
+24. [Free-Spacing Regular Expressions](https://github.com/c4arl0s/RegularExpressions#24-free-spacing-regular-expressions)
 
 Examples
 
-1. [Sample Regular Expression]()
-2. [Matching Floating Point Numbers with a Regular Expression]()
-3. [How to Find or Validate an Email Address]()
-4. [Matching a Valid Date]()
-5. [Matching Whole Lines of Text]()
-6. [Deleting Duplicate Lines From a File ]()
-8. [Find Two Words Near Each Other]()
-9. [Runaway Regular Expressions: Catastrophic Backtracking]()
-10. [Repeating a Capturing Group vs. Capturing a Repeated Group]()
+1. [Sample Regular Expression](https://github.com/c4arl0s/RegularExpressions#1-sample-regular-expression)
+2. [Matching Floating Point Numbers with a Regular Expression](https://github.com/c4arl0s/RegularExpressions#2-matching-floating-point-numbers-with-a-regular-expression)
+3. [How to Find or Validate an Email Address](https://github.com/c4arl0s/RegularExpressions#3-how-to-find-or-validate-an-email-address)
+4. [Matching a Valid Date](https://github.com/c4arl0s/RegularExpressions#4-matching-a-valid-date)
+5. [Matching Whole Lines of Text](https://github.com/c4arl0s/RegularExpressions#5-matching-whole-lines-of-text)
+6. [Deleting Duplicate Lines From a File ](https://github.com/c4arl0s/RegularExpressions#6-deleting-duplicate-lines-from-a-file-)
+8. [Find Two Words Near Each Other](https://github.com/c4arl0s/RegularExpressions#8-find-two-words-near-each-other)
+9. [Runaway Regular Expressions: Catastrophic Backtracking](https://github.com/c4arl0s/RegularExpressions#9-runaway-regular-expressions-catastrophic-backtracking)
+10. [Repeating a Capturing Group vs. Capturing a Repeated Group](https://github.com/c4arl0s/RegularExpressions#10-repeating-a-capturing-group-vs-capturing-a-repeated-group)
 
 
 # 1. [Regular Expression Tutorial]()
@@ -149,6 +149,22 @@ All other characters should not be escaped with a backslash. That is because the
 Escaping a single metacharacter with a backslash works in all regular expression flavors. Many flavors also support the \Q...\E escape sequence. All the characters between the \Q and the \E are interpreted as literal characters. E.g. «\Q*\d+*\E» matches the literal text „*\d+*”. The \E may be omitted at the end of the regex, so «\Q*\d+*» is the same as «\Q*\d+*\E». This syntax is supported by the JGsoft engine, Perl and PCRE, both inside and outside character classes. Java supports it outside character classes only, and quantifies it as one token.
 
 # 6. [Start of String and End of String Anchors]()
+
+Thus far, I have explained literal characters and character classes. In both cases, putting one in a regex will cause the regex engine to try to match a single character.
+Anchors are a different breed. They do not match any character at all. Instead, they match a position before, after or between characters. They can be used to “anchor” the regex match at a certain position. The caret «^» matches the position before the first character in the string. Applying «^a» to “abc” matches „a”. «^b» will not match “abc” at all, because the «b» cannot be matched right after the start of the string, matched by «^». See below for the inside view of the regex engine.
+
+```console
+$ cat article.txt | grep "^A" | tail -1                                                                             
+A second tweet from another leaker, @Jioriku, added to the iMac rumors by writing "The iMac redesign is not coming for this 10th-generation Intel refresh. They are saving it for their own silicon," referencing Apple Silicon.   
+```
+
+Similarly, «$» matches right after the last character in the string. «c$» matches „c” in “abc”, while «a$» does not match at all.
+
+```console
+$ cat article.txt | grep "2$"
+1+1 = 2
+```
+
 # 7. [Word Boundaries]()
 # 8. [Alternation with The Vertical Bar or Pipe Symbol]()
 # 9. [Optional Items]()

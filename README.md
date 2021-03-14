@@ -325,13 +325,13 @@ Doing this in vim, it is also successful.
 /1+1 = 2
 ```
 
-Most regular expression flavors treat the brace «{» as a literal character, unless it is part of a repetition operator like «{1,3}». So you generally do not need to escape it with a backslash, though you can do so if you want. An exception to this rule is the java.util.regex package: it requires all literal braces to be escaped.
+**Most regular expression flavors treat the brace «{» as a literal character, unless it is part of a repetition operator like «{1,3}»**. So you generally do not need to escape it with a backslash, though you can do so if you want. An exception to this rule is the java.util.regex package: it requires all literal braces to be escaped.
 
-All other characters should not be escaped with a backslash. That is because the backslash is also a special character. The backslash in combination with a literal character can create a regex token with a special meaning. 
+**All other characters should not be escaped with a backslash**. That is because the backslash is also a special character. The backslash in combination with a literal character can create a regex token with a special meaning. 
 
 > E.g. «\d» will match a single digit from 0 to 9.
 
-Escaping a single metacharacter with a backslash works in all regular expression flavors. Many flavors also support the \Q...\E escape sequence. All the characters between the \Q and the \E are interpreted as literal characters. 
+**Escaping a single metacharacter with a backslash works in all regular expression flavors**. Many flavors also support the \Q...\E escape sequence. All the characters between the \Q and the \E are interpreted as literal characters. 
 
 > E.g. «`\Q*\d+*\E`» matches the literal text „`*\d+*`”. 
 

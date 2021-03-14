@@ -301,19 +301,25 @@ Note that regex engines are case sensitive by default. «build» does not match 
 
 #  * [Special Characters](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 
-Because we want to do more than simply search for literal pieces of text, we need to reserve certain characters for special use. **In the regex flavors discussed in this tutorial, there are 11 characters with special meanings: the opening square bracket «[», the backslash «\», the caret «^», the dollar sign «$», the period or dot «.», the vertical bar or pipe symbol «|», the question mark «?», the asterisk or star «*», the plus sign «+», the opening round bracket «(» and the closing round bracket «)»**. 
+Because we want to do more than simply search for literal pieces of text, we need to reserve certain characters for special use. **In the regex flavors discussed in this tutorial, there are 11 characters with special meaningsi**: 
+
+1. the opening square bracket «`[`», 
+2. the backslash «\», 
+3. the caret «^», 
+4. the dollar sign «$», 
+5. the period or dot «.», 
+6. the vertical bar or pipe symbol «|», 
+7. the question mark «?», 
+8. the asterisk or star «`*`», 
+9. the plus sign «+», 
+10. the opening round bracket «(» 
+11. and the closing round bracket «)».
 
 **These special characters are often called “metacharacters”**.
 
-If you want to use any of these characters as a literal in a regex, you need to escape them with a backslash. If you want to match „1+1=2”, the correct regex is «1\+1=2». Otherwise, the plus sign will have a special meaning.
+If you want to use any of these characters as a literal in a regex, you need to escape them with a backslash. If you want to match „1+1=2”, the correct regex is «1\+1=2». Otherwise, the plus sign will have a special meaning. Note that «1+1=2», with the backslash omitted, is a valid regex. So you will not get an error message. But it will not match “1+1=2”. It would match „111=2” in “123+111=234”, due to the special meaning of the plus character. If you forget to escape a special character where its use is not allowed, such as in «+1», then you will get an error message. In the case of the grep tool, this does not happen, use a tool like vim to see it.
 
-Note that «1+1=2», with the backslash omitted, is a valid regex. So you will not get an error message. But it will not match “1+1=2”. It would match „111=2” in “123+111=234”, due to the special meaning of the plus character.
-
-If you forget to escape a special character where its use is not allowed, such as in «+1», then you will get an error message.
-
-In the case of the grep tool, this does not happen, use a tool like vim to see it.
-
-Doing this in vim, it is also succesfull. 
+Doing this in vim, it is also successful. 
 
 ```console
 /1+1 = 2
@@ -321,9 +327,15 @@ Doing this in vim, it is also succesfull.
 
 Most regular expression flavors treat the brace «{» as a literal character, unless it is part of a repetition operator like «{1,3}». So you generally do not need to escape it with a backslash, though you can do so if you want. An exception to this rule is the java.util.regex package: it requires all literal braces to be escaped.
 
-All other characters should not be escaped with a backslash. That is because the backslash is also a special character. The backslash in combination with a literal character can create a regex token with a special meaning. E.g. «\d» will match a single digit from 0 to 9.
+All other characters should not be escaped with a backslash. That is because the backslash is also a special character. The backslash in combination with a literal character can create a regex token with a special meaning. 
 
-Escaping a single metacharacter with a backslash works in all regular expression flavors. Many flavors also support the \Q...\E escape sequence. All the characters between the \Q and the \E are interpreted as literal characters. E.g. «\Q*\d+*\E» matches the literal text „*\d+*”. The \E may be omitted at the end of the regex, so «\Q*\d+*» is the same as «\Q*\d+*\E». This syntax is supported by the JGsoft engine, Perl and PCRE, both inside and outside character classes. Java supports it outside character classes only, and quantifies it as one token.
+> E.g. «\d» will match a single digit from 0 to 9.
+
+Escaping a single metacharacter with a backslash works in all regular expression flavors. Many flavors also support the \Q...\E escape sequence. All the characters between the \Q and the \E are interpreted as literal characters. 
+
+> E.g. «`\Q*\d+*\E`» matches the literal text „`*\d+*`”. 
+
+The \E may be omitted at the end of the regex, so «`\Q*\d+*`» is the same as «`\Q*\d+*\E`». This syntax is supported by the JGsoft engine, Perl and PCRE, both inside and outside character classes. Java supports it outside character classes only, and quantifies it as one token.
 
 #  * [Special Characters and Programming Languages](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 

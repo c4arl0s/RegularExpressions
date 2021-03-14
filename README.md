@@ -384,9 +384,15 @@ In this first example of the engine’s internals, our regex engine simply appea
 # 4. [Character Classes or Character Sets](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 
 
-**With a "character class", also called “character set”, you can tell the regex engine to match only one out of several characters**. Simply place the characters you want to match between square brackets. If you want to match an a or an e, use «[ae]». You could use this in «gr[ae]y» to match either „gray” or „grey”. Very useful if you do not know whether the document you are searching through is written in American or British English. A character class matches only a single character. «gr[ae]y» will not match “graay”, “graey” or any such thing. The order of the characters inside a character class does not matter. The results are identical.
+**With a "character class", also called “character set”, you can tell the regex engine to match only one out of several characters**. 
 
-You can use a hyphen inside a character class to specify a range of characters. «[0-9]» matches a single digit between 0 and 9. You can use more than one range. «[0-9a-fA-F]» matches a single hexadecimal digit, case insensitively. You can combine ranges and single characters. «[0-9a-fxA-FX]» matches a hexadecimal digit or the letter X. Again, the order of the characters and the ranges does not matter.
+Simply place the characters you want to match between square brackets `[]`. If you want to match an `a` or an `e`, use «[ae]». You could use this in «gr[ae]y» to match either „gray” or „grey”. Very useful if you do not know whether the document you are searching through is written in American or British English. A character class matches only a single character. «gr[ae]y» will not match “graay”, “graey” or any such thing. The order of the characters inside a character class does not matter. The results are identical.
+
+> So, [ao], this will find `a` or `o`.
+
+**You can use a hyphen inside a character class to specify a range of characters**. «[0-9]» matches a single digit between 0 and 9. You can use more than one range. «[0-9a-fA-F]» matches a single hexadecimal digit, case insensitively. You can combine ranges and single characters. «[0-9a-fxA-FX]» matches a hexadecimal digit or the letter X. Again, the order of the characters and the ranges does not matter.
+
+> [0-9], it will match a single digit between 0 and 9.
 
 ```console
 $ cat article.txt | grep "[0-9]"
@@ -408,6 +414,9 @@ $ cat article.txt | grep "b[aeio]t" | tail -1
 Anchors are a different breed. They do not match any character at all. Instead, they match a position before, after or between characters. They can be used to “anchor” the regex match at a certain position. The caret «^» matches the position before the first character in the string. Applying «^a» to “abc” matches „a”. «^b» will not match “abc” at all, because the «b» cannot be matched right after the start of the string, matched by «^». See below for the inside view of the regex engine.
 ```
 
+Founded words, in the tail line:
+
+- between 
 
 #  * [Useful Applications](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 

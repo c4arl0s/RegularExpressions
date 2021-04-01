@@ -448,6 +448,27 @@ The JGsoft engine, Perl and PCRE also support the \Q...\E sequence inside charac
 POSIX regular expressions treat the backslash as a literal character inside character classes. This means you can’t use backslashes to escape the closing bracket (]), the caret (^) and the hyphen (-). To use these characters, position them as explained above in this section. This also means that special tokens like shorthands are not available in POSIX regular expressions. See the tutorial topic on POSIX bracket expressions for more information.
 
 #     * [Shorthand Characters Classes](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
+
+Since certain character classes are used often, a series of shorthand character classes are available. «\d» is short for «[0- 9]».
+
+«\w» stands for “word character”. Exactly which characters it matches differs between regex flavors. In all flavors, it will include «[A-Za- z]». In most, the underscore and digits are also included. In some flavors, word characters from other languages may also match. The best way to find out is to do a couple of tests with the regex flavor you are using. In the screen shot, you can see the characters matched by «\w» in RegexBuddy using various scripts.
+
+To test an example, I create sentence.txt, the output console instruction is:
+
+![Screen Shot 2021-04-01 at 8 33 05](https://user-images.githubusercontent.com/24994818/113309933-e77e6e00-92c4-11eb-8358-be7819a0e7da.png)
+
+«\s» stands for “whitespace character”. Again, which characters this actually includes, depends on the regex flavor. In all flavors discussed in this tutorial, it includes «[ \t]». That is: «\s» will match a space or a tab. In most flavors, it also includes a carriage return or a line feed as in «[ \t\r\n]». Some flavors include additional, rarely used non-printable characters such as vertical tab and form feed.
+
+Using sentence.txt:
+
+![Screen Shot 2021-04-01 at 8 36 52](https://user-images.githubusercontent.com/24994818/113310396-6d021e00-92c5-11eb-9f3a-b840364f4545.png)
+
+Shorthand character classes can be used both inside and outside the square brackets. «\s\d» matches a whitespace character followed by a digit. «[\s\d]» matches a single character that is either whitespace or a digit. 
+
+![Screen Shot 2021-04-01 at 8 40 08](https://user-images.githubusercontent.com/24994818/113310831-e1d55800-92c5-11eb-8ebd-2bc29028ee8c.png)
+
+When applied to “1 + 2 = 3”, the former regex will match „ 2” (space two), while the latter matches „1” (one). «[\da-fA-F]» matches a hexadecimal digit, and is equivalent to «[0-9a-fA-F]».
+
 #     * [Negated Shorthand Character Classes](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 #     * [Repeating Character classes](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)      
 #     * [Looking Inside The Regex Engine](https://github.com/c4arl0s/RegularExpressions#-looking-inside-the-regex-engine)

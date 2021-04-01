@@ -1,0 +1,4 @@
+This an example of a sentence to test the "\w" shorthand character class.
+1234567890.
+carlosxyz1981.
+carlos santiago cruz 1981.

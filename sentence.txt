@@ -2,3 +2,13 @@ This an example of a sentence to test the "\w" shorthand character class.
 1234567890.
 carlosxyz1981.
 carlos santiago cruz 1981.
+
+Apple CEO Tim Cook says he doesn't expect to remain at the company for the next decade, but isn't planning resignation yet.
+
+During an extensive interview with New York Times writer Kara Swisher, Apple's Tim Cook declined to talk about succession plans, but did address the issue of how long he may continue to lead the company.
+
+Cook is entering his tenth year as CEO at Apple, and in her podcast interview, Swisher asked specifically whether he would still be there in ten more years.
+
+"Ten more years?" said Cook. "Probably not. But I can tell you that I feel great right now and the date is not in sight. But ten more years is a long time — and probably not ten more years."
+
+Swisher asked what plans he had for after he leaves, and what he might do once Apple is behind him.

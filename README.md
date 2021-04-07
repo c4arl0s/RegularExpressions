@@ -470,6 +470,17 @@ Shorthand character classes can be used both inside and outside the square brack
 When applied to “1 + 2 = 3”, the former regex will match „ 2” (space two), while the latter matches „1” (one). «[\da-fA-F]» matches a hexadecimal digit, and is equivalent to «[0-9a-fA-F]».
 
 #     * [Negated Shorthand Character Classes](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
+
+The above three shorthands also have negated versions. «\D» is the same as «[^\d]», «\W» is short for «[^\w]» and «\S» is the equivalent of «[^\s]».
+
+Be careful when using the negated shorthands inside square brackets. «[\D\S]» is not the same as «[^\d\s]». The latter will match any character that is not a digit or whitespace. So it will match „x”, but not “8”. The former, however, will match any character that is either not a digit, or is not whitespace. Because a digit is not whitespace, and whitespace is not a digit, «[\D\S]» will match any character, digit, whitespace or otherwise.
+
+Take a look what is the console output for the file attached to this priject
+
+![Screen Shot 2021-04-07 at 0 27 05](https://user-images.githubusercontent.com/24994818/113814966-15860700-9738-11eb-8f4b-6ddcae306e46.png)
+
+The output points only symbols like , and ?, and . 
+
 #     * [Repeating Character classes](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)      
 #     * [Looking Inside The Regex Engine](https://github.com/c4arl0s/RegularExpressions#-looking-inside-the-regex-engine)
 # 5. [The Dot Matches (Almost) Any Character](https://github.com/c4arl0s/RegularExpressions#5-the-dot-matches-almost-any-character-)

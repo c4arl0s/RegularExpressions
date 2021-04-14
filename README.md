@@ -482,6 +482,15 @@ Take a look what is the console output for the file attached to this priject
 The output points only symbols like , and ?, and . 
 
 #     * [Repeating Character classes](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)      
+
+If you repeat a character class by using the «?», «*» or «+» operators, you will repeat the entire character class, and not just the character that it matched. The regex «[0-9]+» can match „837” as well as „222”.
+If you want to repeat the matched character, rather than the class, you will need to use backreferences. «([0- 9])\1+» will match „222” but not “837”. When applied to the string “833337”, it will match „3333” in the middle of this string. If you do not want that, you need to use lookahead and lookbehind.
+But I digress. I did not yet explain how character classes work inside the regex engine. Let us take a look at that first.
+
+If you are doing it in VIM: you have to use `[0-9]\+` to repeat a character. Take a look below:
+
+![Screen Shot 2021-04-13 at 19 30 54](https://user-images.githubusercontent.com/24994818/114637407-e1a66680-9c8e-11eb-8a4d-25c58409a20e.png)
+
 #     * [Looking Inside The Regex Engine](https://github.com/c4arl0s/RegularExpressions#-looking-inside-the-regex-engine)
 # 5. [The Dot Matches (Almost) Any Character](https://github.com/c4arl0s/RegularExpressions#5-the-dot-matches-almost-any-character-)
 #     * [Use The Dot Sparingly]()

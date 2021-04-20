@@ -492,6 +492,15 @@ If you are doing it in VIM: you have to use `[0-9]\+` to repeat a character. Tak
 ![Screen Shot 2021-04-13 at 19 30 54](https://user-images.githubusercontent.com/24994818/114637407-e1a66680-9c8e-11eb-8a4d-25c58409a20e.png)
 
 #     * [Looking Inside The Regex Engine](https://github.com/c4arl0s/RegularExpressions#-looking-inside-the-regex-engine)
+
+As I already said: the order of the characters inside a character class does not matter. «gr[ae]y» will match „grey” in “Is his hair grey or gray?”, because that is the leftmost match. We already saw how the engine applies a regex consisting only of literal characters. Below, I will explain how it applies a regex that has more than one permutation. That is: «gr[ae]y» can match both „gray” and „grey”.
+
+Nothing noteworthy happens for the first twelve characters in the string. The engine will fail to match «g» at every step, and continue with the next character in the string. When the engine arrives at the 13th character, „g” is matched. The engine will then try to match the remainder of the regex with the text. The next token in the regex is the literal «r», which matches the next character in the text. So the third token, «[ae]» is attempted at the next character in the text (“e”). The character class gives the engine two options: match «a» or match «e». It will first attempt to match «a», and fail.
+
+But because we are using a regex-directed engine, it must continue trying to match all the other permutations of the regex pattern before deciding that the regex cannot be matched with the text starting at character 13.
+
+So it will continue with the other option, and find that «e» matches „e”. The last regex token is «y», which can be matched with the following character as well. The engine has found a complete match with the text starting at character 13. It will return „grey” as the match result, and look no further. Again, the leftmost match was returned, even though we put the «a» first in the character class, and „gray” could have been matched in the string. But the engine simply did not get that far, because another equally valid match was found to the left of it.
+
 # 5. [The Dot Matches (Almost) Any Character](https://github.com/c4arl0s/RegularExpressions#5-the-dot-matches-almost-any-character-)
 #     * [Use The Dot Sparingly]()
 #     * [Use Negated Character Sets Instead of the Dot](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)

@@ -483,7 +483,7 @@ The output points only symbols like , and ?, and .
 
 #     * [Repeating Character classes](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)      
 
-If you repeat a character class by using the «?», «*» or «+» operators, you will repeat the entire character class, and not just the character that it matched. The regex «[0-9]+» can match „837” as well as „222”.
+If you repeat a character class by using the «?», «`*» or «+» operators, you will repeat the entire character class, and not just the character that it matched. The regex «[0-9]+» can match „837” as well as „222”.
 If you want to repeat the matched character, rather than the class, you will need to use backreferences. «([0- 9])\1+» will match „222” but not “837”. When applied to the string “833337”, it will match „3333” in the middle of this string. If you do not want that, you need to use lookahead and lookbehind.
 But I digress. I did not yet explain how character classes work inside the regex engine. Let us take a look at that first.
 
@@ -502,6 +502,24 @@ But because we are using a regex-directed engine, it must continue trying to mat
 So it will continue with the other option, and find that «e» matches „e”. The last regex token is «y», which can be matched with the following character as well. The engine has found a complete match with the text starting at character 13. It will return „grey” as the match result, and look no further. Again, the leftmost match was returned, even though we put the «a» first in the character class, and „gray” could have been matched in the string. But the engine simply did not get that far, because another equally valid match was found to the left of it.
 
 # 5. [The Dot Matches (Almost) Any Character](https://github.com/c4arl0s/RegularExpressions#5-the-dot-matches-almost-any-character-)
+
+In regular expressions, the dot or period is one of the most commonly used metacharacters. Unfortunately, it is also the most commonly misused metacharacter.
+
+The dot matches a single character, without caring what that character is. The only exception are newlinecharacters. In all regex flavors discussed in this tutorial, the dot will not match a newline character by default. So by default, the dot is short for the negated character class «[^\n]» (UNIX regex flavors) or «[^\r\n]» (Windows regex flavors).
+
+This exception exists mostly because of historic reasons. The first tools that used regular expressions were line-based. They would read a file line by line, and apply the regular expression separately to each line. The effect is that with these tools, the string could never contain newlines, so the dot could never match them.
+
+Modern tools and languages can apply regular expressions to very large strings or even entire files. All regex flavors discussed here have an option to make the dot match all characters, including newlines. In RegexBuddy, EditPad Pro or PowerGREP, you simply tick the checkbox labeled “dot matches newline”.
+
+In Perl, the mode where the dot also matches newlines is called "single-line mode". This is a bit unfortunate, because it is easy to mix up this term with “multi-line mode”. Multi-line mode only affects anchors, and single-line mode only affects the dot. You can activate single-line mode by adding an s after the regex code, like this: m/^regex$/s;.
+
+Other languages and regex libraries have adopted Perl’s terminology. When using the regex classes of the .NET framework, you activate this mode by specifying RegexOptions.Singleline, such as in Regex.Match("string", "regex", RegexOptions.Singleline).
+
+In all programming languages and regex libraries I know, activating single-line mode has no effect other than making the dot match newlines. So if you expose this option to your users, please give it a clearer label like was done in RegexBuddy, EditPad Pro and PowerGREP.
+
+JavaScript and VBScript do not have an option to make the dot match line break characters. In those languages, you can use a character class such as «[\s\S]» to match any character. This character matches a character that is either a whitespace character (including line break characters), or a character that is not a whitespace character. Since all characters are either whitespace or non-whitespace, this character class matches any character.
+
+
 #     * [Use The Dot Sparingly]()
 #     * [Use Negated Character Sets Instead of the Dot](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 # 6. [Start of String and End of String Anchors](https://github.com/c4arl0s/RegularExpressions#6-start-of-string-and-end-of-string-anchors)

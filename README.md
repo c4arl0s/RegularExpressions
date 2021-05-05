@@ -519,8 +519,29 @@ In all programming languages and regex libraries I know, activating single-line 
 
 JavaScript and VBScript do not have an option to make the dot match line break characters. In those languages, you can use a character class such as «[\s\S]» to match any character. This character matches a character that is either a whitespace character (including line break characters), or a character that is not a whitespace character. Since all characters are either whitespace or non-whitespace, this character class matches any character.
 
+#     * [Use The Dot Sparingly](https://github.com/c4arl0s/RegularExpressions#5-the-dot-matches-almost-any-character-)
 
-#     * [Use The Dot Sparingly]()
+The dot is a very powerful regex metacharacter. It allows you to be lazy. Put in a dot, and everything will match just fine when you test the regex on valid data. The problem is that the regex will also match in cases where it should not match. If you are new to regular expressions, some of these cases may not be so obvious at first.
+
+I will illustrate this with a simple example. Let’s say we want to match a date in mm/dd/yy format, but we want to leave the user the choice of date separators. The quick solution is «\d\d.\d\d.\d\d».  Seems fine at first. It will match a date like „02/12/03” just fine. Trouble is: „02512703” is also considered a valid date by this regular expression. In this match, the first dot matched „5”, and the second matched „7”. Obviously not what we intended.
+
+«\d\d[- /.]\d\d[- /.]\d\d» is a better solution. This regex allows a dash, space, dot and forward slash as date separators. **Remember that the dot is not a metacharacter inside a character class, so we do not need to escape it with a backslash**.
+
+This regex is still far from perfect. It matches „99/99/99” as a valid date. «[0-1]\d[- /.][0-3]\d[- /.]\d\d» is a step ahead, though it will still match „19/39/99”. 
+
+
+```console
+[0-1]\d[- /.][0-3]\d[- /.]\d\d»
+```
+
+If you want to match 2021 year, add two more digits.
+
+```console
+[0-1]\d[- /.][0-3]\d[- /.]\d\d\d\d»
+```
+
+How perfect you want your regex to be depends on what you want to do with it. If you are validating user input, it has to be perfect. If you are parsing data files from a known source that generates its files in the same way every time, our last attempt is probably more than sufficient to parse the data without errors. You can find a better regex to match dates in the example section.
+
 #     * [Use Negated Character Sets Instead of the Dot](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 # 6. [Start of String and End of String Anchors](https://github.com/c4arl0s/RegularExpressions#6-start-of-string-and-end-of-string-anchors)
 #     * [Useful Applications](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)

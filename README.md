@@ -341,9 +341,25 @@ See the tools and languages section in this book for more information on how to 
 
 #  * [Non-Printable Characters](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 
-**You can use special character sequences to put non-printable characters in your regular expression**. Use `\t` to match a tab character (ASCII 0x09), \r for carriage return (0x0D) and \n for line feed (0x0A). More exotic non-printables are \a (bell, 0x07), \e (escape, 0x1B), \f (form feed, 0x0C) and \v (vertical tab, 0x0B). Remember that Windows text files use “\r\n” to terminate lines, while UNIX text files use “\n”.
+**You can use special character sequences to put non-printable characters in your regular expression**. 
+
+1. Use `\t` to match a tab character (ASCII 0x09), 
+2. \r for carriage return (0x0D) 
+3. and \n for line feed (0x0A). 
+
+More exotic non-printables are: 
+
+1. \a (bell, 0x07), 
+2. \e (escape, 0x1B), 
+3. \f (form feed, 0x0C) 
+4. and \v (vertical tab, 0x0B). 
+
+> Remember that Windows text files use “\r\n” to terminate lines, while UNIX text files use “\n”.
+
 You can include any character in your regular expression if you know its hexadecimal ASCII or ANSI code for the character set that you are working with. In the Latin-1 character set, the copyright symbol is character 0xA9. So to search for the copyright symbol, you can use `\xA9`. Another way to search for a tab is to use \x09. Note that the leading zero is required.
+
 Most regex flavors also support the tokens `\cA` through \cZ to insert ASCII control characters. The letter after the backslash is always a lowercase c. The second letter is an uppercase letter A through Z, to indicate Control+A through Control+Z. These are equivalent to \x01 through \x1A (26 decimal). E.g. \cM matches a carriage return, just like \r and \x0D. In XML Schema regular expressions, \c is a shorthand character class that matches any character allowed in an XML name.
+
 If your regular expression engine supports Unicode, use `\uFFFF` rather than \xFF to insert a Unicode character. The euro currency sign occupies code point 0x20AC. If you cannot type it on your keyboard, you can insert it into a regular expression with \u20AC.
 
 # 3. [First Look at How a Regex Engine Works Internally](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
@@ -603,6 +619,9 @@ In text editors like EditPad Pro or GNU Emacs, and regex tools like PowerGREP, t
 In all programming languages and libraries discussed in this book , except Ruby, you have to explicitly activate this extended functionality. It is traditionally called "multi-line mode". In Perl, you do this by adding an m after the regex code, like this: m/^regex$/m;. In .NET, the anchors match before and after newlines when you specify RegexOptions.Multiline, such as in Regex.Match("string", "regex", RegexOptions.Multiline).
 
 #     * [Permanent Start of String and End of String Anchors](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
+
+`\A` only ever matches at the start of the string. Likewise, `\Z` only ever matches at the end of the string. These two tokens never match at line breaks. This is true in all regex flavors discussed in this tutorial, even when you turn on “multiline mode”. In EditPad Pro and PowerGREP, where the caret and dollar always match at the start and end of lines, `\A` and `\Z` only match at the start and the end of the entire file.
+
 #     * [Zero-Length Matches](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 #     * [Strings Ending with a Line Break](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 #     * [Looking Inside the Regex Engine](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)

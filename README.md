@@ -543,6 +543,21 @@ If you want to match 2021 year, add two more digits.
 How perfect you want your regex to be depends on what you want to do with it. If you are validating user input, it has to be perfect. If you are parsing data files from a known source that generates its files in the same way every time, our last attempt is probably more than sufficient to parse the data without errors. You can find a better regex to match dates in the example section.
 
 #     * [Use Negated Character Sets Instead of the Dot](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
+
+I will explain this in depth when I present you the repeat operators star and plus, but the warning is important enough to mention it here as well. I will illustrate with an example.
+
+Suppose you want to match a double-quoted string. Sounds easy. We can have any number of any character between the double quotes, so `".*"` seems to do the trick just fine. The dot matches any character, and the star allows the dot to be repeated any number of times, including zero. If you test this regex on “Put a "string" between double quotes”, it will match „"string"” just fine. Now go ahead and test it on “Houston, we have a problem with "string one" and "string two". Please respond.”
+
+Ouch. The regex matches „"string one" and "string two"”. Definitely not what we intended. The reason for this is that the star is greedy.
+
+In the date-matching example, we improved our regex by replacing the dot with a character class. Here, we will do the same. Our original definition of a double-quoted string was faulty. We do not want any number of any character between the quotes. We want any number of characters that are not double quotes or newlines between the quotes. So the proper regex is `"[^"\r\n]*"`.
+
+This is important to find patterns like „method(_:)” or „method(parameter:)”:
+
+```txt
+method(_:) and this is another method2(parameter:).
+```
+
 # 6. [Start of String and End of String Anchors](https://github.com/c4arl0s/RegularExpressions#6-start-of-string-and-end-of-string-anchors)
 #     * [Useful Applications](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 #     * [Using ^ and $ as Start of Line and End of Line Anchors](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)

@@ -24,7 +24,7 @@
     * [Use The Dot Sparingly](https://github.com/c4arl0s/RegularExpressions#-use-the-dot-sparingly)
     * [Use Negated Character Sets Instead of the Dot](https://github.com/c4arl0s/RegularExpressions#-use-negated-character-sets-instead-of-the-dot)
 6. [Start of String and End of String Anchors](https://github.com/c4arl0s/RegularExpressions#6-start-of-string-and-end-of-string-anchors)
-    * [Useful Applications](https://github.com/c4arl0s/RegularExpressions#-useful-applications-1)
+    * [Useful Applications](https://github.com/c4arl0s/RegularExpressions#-useful-applications-for-6)
     * [Using ^ and $ as Start of Line and End of Line Anchors](https://github.com/c4arl0s/RegularExpressions#-using--and--as-start-of-line-and-end-of-line-anchors)
     * [Permanent Start of String and End of String Anchors](https://github.com/c4arl0s/RegularExpressions#-permanent-start-of-string-and-end-of-string-anchors)
     * [Zero-Length Matches](https://github.com/c4arl0s/RegularExpressions#-zero-length-matches)
@@ -254,7 +254,7 @@ It retrieves all lines where the sting "view" appears.
 
 # 2. [Literal Characters](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 
-**The most basic regular expression consists of a single literal character, e.g.: `a**`. 
+**The most basic regular expression consists of a single literal character, e.g.: `a`**. 
 
 It will match the first occurrence of that character in the string. If the string is “Jack is a boy”, it will match the „a” after the “J”.
 
@@ -262,17 +262,11 @@ Let's start experimenting our course by using this txt file.
 
 ```txt
 A prominent leaker has cast doubt on rumors that a 2020 iMac update will take place this week, instead suggesting that the product refresh is more likely to take place in August, though without any major redesigns.
-
 Over the weekend, a tweet from a relatively unknown leaker started circulating, putting forward the claim that Apple was preparing to launch a new iMac "this week." The tweet from @Soybeys also went further, suggesting the launch itself could happen earlier in the period, on the Monday.
-
 A second tweet from another leaker, @Jioriku, added to the iMac rumors by writing "The iMac redesign is not coming for this 10th-generation Intel refresh. They are saving it for their own silicon," referencing Apple Silicon.
-
 Late on Sunday, prominent leak reporter Jon Prosser dismissed the claimed launch this week with a single word attached to a screenshot of a headline reporting on the supposed launch: "Nope." In a second tweet, Prosser goes on to suggest it will be later, advising "If you want the new iMac, keep an eye out for August." 
-
 While there is some dispute over timing, there does seem to be a general belief that some form of product launch is on the way. On July 19, fellow prominent leaker @L0vetodream suggested "some products are ready to ship," without saying exactly what, while a mid-June DigiTimes report claimed new iMac and iPad models were destined for release in the second half of 2020.
-
 Despite being negative about the first of the two tweets, Prosser does seem to have backed up the second, ending one of his tweets with "No redesign." This seems to be fairly logical to deduce, as it would be expected for Apple to withhold any major design changes for a major update, such as the introduction of Apple Silicon.
-
 Icons found in an alleged iOS 14 build in June offered the suggestion Apple was redesigning the iMac to include a design that is reminiscent of an iPad Pro, complete with thinner bezels.
 ```
 
@@ -566,7 +560,40 @@ Anchors are a different breed. They do not match any character at all. Instead, 
 
 Similarly, `$` matches right after the last character in the string. `c$` matches „c” in “abc”, while `a$` does not match at all.
 
-#     * [Useful Applications](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
+#     * [Useful Applications for 6](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
+
+When using regular expressions in a programming language to validate user input, using anchors is very important. If you use the code if ($input =~ m/\d+/) in a Perl script to see if the user entered an integer number, it will accept the input even if the user entered “qsdf4ghjk”, because «\d+» matches the 4. The correct regex to use is «^\d+$». Because “start of string” must be matched before the match of «\d+», and “end of string” must be matched right after it, the entire string must consist of digits for «^\d+$» to be able to match.
+
+If you apply it to VIM:
+
+```console
+/\d\+
+```
+
+It matches 4
+
+The correct regex is:
+
+```console
+/^\d\+$
+```
+
+Then, it will not match “qsdf4ghjk”, It only matches “2222”, “12323”, “23”, etc.
+
+It is easy for the user to accidentally type in a space. When Perl reads from a line from a text file, the line break will also be stored in the variable. So before validating input, it is good practice to trim leading and trailing whitespace. `^\s+` matches leading whitespace and `\s+$` matches trailing whitespace. 
+
+In VIM:
+
+```console
+/^\s\+
+```
+
+```console
+/^\s\+$
+```
+
+In Perl, you could use $input =~ s/^\s+|\s+$//g. Handy use of alternation and /g allows us to do this in a single line of code.
+
 #     * [Using ^ and $ as Start of Line and End of Line Anchors](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 #     * [Permanent Start of String and End of String Anchors](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 #     * [Zero-Length Matches](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)

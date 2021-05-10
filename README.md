@@ -595,6 +595,13 @@ In VIM:
 In Perl, you could use $input =~ s/^\s+|\s+$//g. Handy use of alternation and /g allows us to do this in a single line of code.
 
 #     * [Using ^ and $ as Start of Line and End of Line Anchors](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
+
+If you have a string consisting of multiple lines, like “first line\nsecond line” (where \n indicates a line break), it is often desirable to work with lines, rather than the entire string. Therefore, all the regex engines discussed in this tutorial have the option to expand the meaning of both anchors. `^` can then match at the start of the string (before the “f” in the above string), as well as after each line break (between “\n” and “s”). Likewise, `$` will still match at the end of the string (after the last “e”), and also before every line break (between “e” and “\n”).
+
+In text editors like EditPad Pro or GNU Emacs, and regex tools like PowerGREP, the caret and dollar always match at the start and end of each line. This makes sense because those applications are designed to work with entire files, rather than short strings.
+
+In all programming languages and libraries discussed in this book , except Ruby, you have to explicitly activate this extended functionality. It is traditionally called "multi-line mode". In Perl, you do this by adding an m after the regex code, like this: m/^regex$/m;. In .NET, the anchors match before and after newlines when you specify RegexOptions.Multiline, such as in Regex.Match("string", "regex", RegexOptions.Multiline).
+
 #     * [Permanent Start of String and End of String Anchors](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 #     * [Zero-Length Matches](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 #     * [Strings Ending with a Line Break](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)

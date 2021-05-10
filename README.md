@@ -552,13 +552,20 @@ Ouch. The regex matches „"string one" and "string two"”. Definitely not what
 
 In the date-matching example, we improved our regex by replacing the dot with a character class. Here, we will do the same. Our original definition of a double-quoted string was faulty. We do not want any number of any character between the quotes. We want any number of characters that are not double quotes or newlines between the quotes. So the proper regex is `"[^"\r\n]*"`.
 
-This is important to find patterns like „method(_:)” or „method(parameter:)”:
+This is important to find patterns like „method(:)” or „method(parameter:)”:
 
 ```txt
 method(_:) and this is another method2(parameter:).
 ```
 
 # 6. [Start of String and End of String Anchors](https://github.com/c4arl0s/RegularExpressions#6-start-of-string-and-end-of-string-anchors)
+
+Thus far, I have explained literal characters and character classes. In both cases, putting one in a regex will cause the regex engine to try to match a single character.
+
+Anchors are a different breed. They do not match any character at all. Instead, they match a position before, after or between characters. They can be used to “anchor” the regex match at a certain position. The caret `^` matches the position before the first character in the string. Applying `^a` to “abc” matches „a”. `^b` will not match “abc” at all, because the `b` cannot be matched right after the start of the string, matched by `^`. See below for the inside view of the regex engine.
+
+Similarly, `$` matches right after the last character in the string. `c$` matches „c” in “abc”, while `a$` does not match at all.
+
 #     * [Useful Applications](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 #     * [Using ^ and $ as Start of Line and End of Line Anchors](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 #     * [Permanent Start of String and End of String Anchors](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)

@@ -641,6 +641,19 @@ Take a look how Zero-length matches.
 However, matching only a position can be very useful. In email, for example, it is common to prepend a “greater than” symbol and a space to each line of the quoted message. In VB.NET, we can easily do this with Dim Quoted as String = Regex.Replace(Original, "^", "> ", RegexOptions.Multiline). We are using multi-line mode, so the regex «^» matches at the start of the quoted message, and after each newline. The Regex.Replace method will remove the regex match from the string, and insert the replacement string (greater than symbol and a space). Since the match does not include any characters, nothing is deleted. However, the match does include a starting position, and the replacement string is inserted there, just like we want it.
 
 #     * [Strings Ending with a Line Break](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
+
+Even though «\Z» and «$» only match at the end of the string (when the option for the caret and dollar to match at embedded line breaks is off), there is one exception. If the string ends with a line break, then «\Z» and «$» will match at the position before that line break, rather than at the very end of the string. This “enhancement” was introduced by Perl, and is copied by many regex flavors, including Java, .NET and PCRE. In Perl, when reading a line from a file, the resulting string will end with a line break. Reading a line from a file with the text “joe” results in the string “joe\n”. When applied to this string, both `^[a-z]+$` and `\A[a-z]+\Z` will match „joe”.
+
+Applying this In VIM, you will find this at this moment:
+
+```c
+/^[a-z]\+$
+```
+
+![Screen Shot 2021-05-16 at 6 53 41](https://user-images.githubusercontent.com/24994818/118396164-d2ab2f00-b613-11eb-984b-0e7759e67e2b.png)
+
+If you only want a match at the absolute very end of the string, use «\z» (lower case z instead of upper case Z). «\A[a-z]+\z» does not match “joe\n”. «\z» matches after the line break, which is not matched by the character class.
+
 #     * [Looking Inside the Regex Engine](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 #     * [Another Inside Look](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 #     * [Caution for Programmers](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)

@@ -623,6 +623,23 @@ In all programming languages and libraries discussed in this book , except Ruby,
 `\A` only ever matches at the start of the string. Likewise, `\Z` only ever matches at the end of the string. These two tokens never match at line breaks. This is true in all regex flavors discussed in this tutorial, even when you turn on “multiline mode”. In EditPad Pro and PowerGREP, where the caret and dollar always match at the start and end of lines, `\A` and `\Z` only match at the start and the end of the entire file.
 
 #     * [Zero-Length Matches](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
+
+We saw that the anchors match at a position, rather than matching a character. This means that when a regex only consists of one or more anchors, it can result in a zero-length match. Depending on the situation, this can be very useful or undesirable. Using `^\d*$` to test if the user entered a number.
+
+> notice the use of the star instead of the plus would cause the script to accept an empty string as a valid input. See below.
+
+In VIM:
+
+```console
+/^\d*$
+```
+
+![Screen Shot 2021-05-16 at 6 37 56](https://user-images.githubusercontent.com/24994818/118395691-531c6080-b611-11eb-9840-df7e9e36447a.png)
+
+Take a look how Zero-length matches.
+
+However, matching only a position can be very useful. In email, for example, it is common to prepend a “greater than” symbol and a space to each line of the quoted message. In VB.NET, we can easily do this with Dim Quoted as String = Regex.Replace(Original, "^", "> ", RegexOptions.Multiline). We are using multi-line mode, so the regex «^» matches at the start of the quoted message, and after each newline. The Regex.Replace method will remove the regex match from the string, and insert the replacement string (greater than symbol and a space). Since the match does not include any characters, nothing is deleted. However, the match does include a starting position, and the replacement string is inserted there, just like we want it.
+
 #     * [Strings Ending with a Line Break](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 #     * [Looking Inside the Regex Engine](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 #     * [Another Inside Look](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)

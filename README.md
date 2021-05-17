@@ -655,6 +655,23 @@ Applying this In VIM, you will find this at this moment:
 If you only want a match at the absolute very end of the string, use «\z» (lower case z instead of upper case Z). «\A[a-z]+\z» does not match “joe\n”. «\z» matches after the line break, which is not matched by the character class.
 
 #     * [Looking Inside the Regex Engine](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
+
+Let’s see what happens when we try to match «^4$» to “749\n486\n4” 
+
+749
+486
+4
+
+> Where \n represents a newline character, in multi-line mode. 
+
+As usual, the regex engine starts at the first character: “7”. The first token in the regular expression is `^`. Since this token is a zero-width token, the engine does not try to match it with the character, but rather with the position before the character that the regex engine has reached so far. `^` indeed matches the position before “7”. The engine then advances to the next regex token: `4`. Since the previous token was zero-width, the regex engine does not advance to the next character in the string. It remains at “7”. `4` is a literal character, which does not match “7”. There are no other permutations of the regex, so the engine starts again with the first regex token, at the next character: “4”. This time, `^` cannot match at the position before the 4. This position is preceded by a character, and that character is not a newline. The engine continues at “9”, and fails again. The next attempt, at “\n”, also fails. Again, the position before “\n” is preceded by a character, “9”, and that character is not a newline.
+
+Then, the regex engine arrives at the second “4” in the string. The `^` can match at the position before the “4”, because it is preceded by a newline character. Again, the regex engine advances to the next regex token, `4`, but does not advance the character position in the string. `4` matches „4”, and the engine advances both the regex token and the string character. Now the engine attempts to match `$` at the position before (indeed: before) the “8”. The dollar cannot match here, because this position is followed by a character, and that character is not a newline.
+
+Yet again, the engine must try to match the first token again. Previously, it was successfully matched at the second “4”, so the engine continues at the next character, “8”, where the caret does not match. Same at the six and the newline. 
+
+Finally, the regex engine tries to match the first token at the third “4” in the string. With success. After that, the engine successfully matches «4» with „4”. The current regex token is advanced to «$», and the current character is advanced to the very last position in the string: the void after the string. No regex token that needs a character to match can match here. Not even a negated character class. However, we are trying to match a dollar sign, and the mighty dollar is a strange beast. It is zero-width, so it will try to match the position before the current character. It does not matter that this “character” is the void after the string. In fact, the dollar will check the current character. It must be either a newline, or the void after the string, for «$» to match the position before the current character. Since that is the case after the example, the dollar matches successfully. Since «$» was the last token in the regex, the engine has found a successful match: the last „4” in the string.
+
 #     * [Another Inside Look](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 #     * [Caution for Programmers](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 # 7. [Word Boundaries](https://github.com/c4arl0s/RegularExpressions#7-word-boundaries)

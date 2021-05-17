@@ -638,11 +638,11 @@ In VIM:
 
 Take a look how Zero-length matches.
 
-However, matching only a position can be very useful. In email, for example, it is common to prepend a “greater than” symbol and a space to each line of the quoted message. In VB.NET, we can easily do this with Dim Quoted as String = Regex.Replace(Original, "^", "> ", RegexOptions.Multiline). We are using multi-line mode, so the regex «^» matches at the start of the quoted message, and after each newline. The Regex.Replace method will remove the regex match from the string, and insert the replacement string (greater than symbol and a space). Since the match does not include any characters, nothing is deleted. However, the match does include a starting position, and the replacement string is inserted there, just like we want it.
+However, matching only a position can be very useful. In email, for example, it is common to prepend a “greater than” symbol and a space to each line of the quoted message. In VB.NET, we can easily do this with Dim Quoted as String = Regex.Replace(Original, "^", "> ", RegexOptions.Multiline). We are using multi-line mode, so the regex `^` matches at the start of the quoted message, and after each newline. The Regex.Replace method will remove the regex match from the string, and insert the replacement string (greater than symbol and a space). Since the match does not include any characters, nothing is deleted. However, the match does include a starting position, and the replacement string is inserted there, just like we want it.
 
 #     * [Strings Ending with a Line Break](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 
-Even though «\Z» and «$» only match at the end of the string (when the option for the caret and dollar to match at embedded line breaks is off), there is one exception. If the string ends with a line break, then «\Z» and «$» will match at the position before that line break, rather than at the very end of the string. This “enhancement” was introduced by Perl, and is copied by many regex flavors, including Java, .NET and PCRE. In Perl, when reading a line from a file, the resulting string will end with a line break. Reading a line from a file with the text “joe” results in the string “joe\n”. When applied to this string, both `^[a-z]+$` and `\A[a-z]+\Z` will match „joe”.
+Even though `\Z` and `$` only match at the end of the string (when the option for the caret and dollar to match at embedded line breaks is off), there is one exception. If the string ends with a line break, then `\Z` and `$` will match at the position before that line break, rather than at the very end of the string. This “enhancement” was introduced by Perl, and is copied by many regex flavors, including Java, .NET and PCRE. In Perl, when reading a line from a file, the resulting string will end with a line break. Reading a line from a file with the text “joe” results in the string “joe\n”. When applied to this string, both `^[a-z]+$` and `\A[a-z]+\Z` will match „joe”.
 
 Applying this In VIM, you will find this at this moment:
 
@@ -652,15 +652,17 @@ Applying this In VIM, you will find this at this moment:
 
 ![Screen Shot 2021-05-16 at 6 53 41](https://user-images.githubusercontent.com/24994818/118396164-d2ab2f00-b613-11eb-984b-0e7759e67e2b.png)
 
-If you only want a match at the absolute very end of the string, use «\z» (lower case z instead of upper case Z). «\A[a-z]+\z» does not match “joe\n”. «\z» matches after the line break, which is not matched by the character class.
+If you only want a match at the absolute very end of the string, use `\z` (lower case z instead of upper case Z). `\A[a-z]+\z` does not match “joe\n”. `\z` matches after the line break, which is not matched by the character class.
 
 #     * [Looking Inside the Regex Engine](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 
-Let’s see what happens when we try to match «^4$» to “749\n486\n4” 
+Let’s see what happens when we try to match `^4$` to “749\n486\n4”. Which is:
 
+```console
 749
 486
 4
+```
 
 > Where \n represents a newline character, in multi-line mode. 
 
@@ -670,10 +672,22 @@ Then, the regex engine arrives at the second “4” in the string. The `^` can 
 
 Yet again, the engine must try to match the first token again. Previously, it was successfully matched at the second “4”, so the engine continues at the next character, “8”, where the caret does not match. Same at the six and the newline. 
 
-Finally, the regex engine tries to match the first token at the third “4” in the string. With success. After that, the engine successfully matches «4» with „4”. The current regex token is advanced to «$», and the current character is advanced to the very last position in the string: the void after the string. No regex token that needs a character to match can match here. Not even a negated character class. However, we are trying to match a dollar sign, and the mighty dollar is a strange beast. It is zero-width, so it will try to match the position before the current character. It does not matter that this “character” is the void after the string. In fact, the dollar will check the current character. It must be either a newline, or the void after the string, for «$» to match the position before the current character. Since that is the case after the example, the dollar matches successfully. Since «$» was the last token in the regex, the engine has found a successful match: the last „4” in the string.
+Finally, the regex engine tries to match the first token at the third “4” in the string. With success. After that, the engine successfully matches `4` with „4”. The current regex token is advanced to `$`, and the current character is advanced to the very last position in the string: the void after the string. No regex token that needs a character to match can match here. Not even a negated character class. However, we are trying to match a dollar sign, and the mighty dollar is a strange beast. It is zero-width, so it will try to match the position before the current character. It does not matter that this “character” is the void after the string. In fact, the dollar will check the current character. It must be either a newline, or the void after the string, for `$` to match the position before the current character. Since that is the case after the example, the dollar matches successfully. Since `$` was the last token in the regex, the engine has found a successful match: the last „4” in the string.
+
+![Screen Shot 2021-05-16 at 22 32 16](https://user-images.githubusercontent.com/24994818/118429155-a5539500-b696-11eb-9b94-0c835703ceaf.png)
 
 #     * [Another Inside Look](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
+
+Earlier I mentioned that `^\d*$` would successfully match an empty string. Let’s see why. There is only one “character” position in an empty string: the void after the string. The first token in the regex is `^`. It matches the position before the void after the string, because it is preceded by the void before the string. The next token is `\d*`. As we will see later, one of the star’s effects is that it makes the `\d`, in this case, optional. The engine will try to match `\d` with the void after the string. That fails, but the star turns the failure of the `\d` into a zero-width success. The engine will proceed with the next regex token, without advancing the position in the string. So the engine arrives at `$`, and the void after the string. We already saw that those match. At this point, the entire regex has matched the empty string, and the engine reports success.
+
+![Screen Shot 2021-05-16 at 22 37 07](https://user-images.githubusercontent.com/24994818/118429413-43475f80-b697-11eb-9762-83530dd154c2.png)
+
 #     * [Caution for Programmers](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
+
+A regular expression such as `$` all by itself can indeed match after the string. If you would query the engine for the character position, it would return the length of the string if string indices are zero-based, or the length+1 if string indices are one-based in your programming language. If you would query the engine for the length of the match, it would return zero.
+
+What you have to watch out for is that String[Regex.MatchPosition] may cause an access violation or segmentation fault, because MatchPosition can point to the void after the string. This can also happen with `^` and `^$` if the last character in the string is a newline.
+
 # 7. [Word Boundaries](https://github.com/c4arl0s/RegularExpressions#7-word-boundaries)
 #     * [Negated Word Boundary](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 #     * [Looking Inside the Regex Engine](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)

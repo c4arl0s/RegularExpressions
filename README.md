@@ -689,6 +689,38 @@ A regular expression such as `$` all by itself can indeed match after the string
 What you have to watch out for is that String[Regex.MatchPosition] may cause an access violation or segmentation fault, because MatchPosition can point to the void after the string. This can also happen with `^` and `^$` if the last character in the string is a newline.
 
 # 7. [Word Boundaries](https://github.com/c4arl0s/RegularExpressions#7-word-boundaries)
+
+The metacharacter `\b` is an anchor like the caret and the dollar sign. It matches at a position that is called a “word boundary”. This match is zero-length.
+
+There are four different positions that qualify as word boundaries:
+
+1. Before the first character in the string, if the first character is a word character.
+2. After the last character in the string, if the last character is a word character.
+3. Between a word character and a non-word character following right after the word character.
+4. Between a non-word character and a word character following right after the non-word character.
+
+Simply put: `\b` allows you to perform a “whole words only” search using a regular expression in the form of `\bword\b`. A “word character” is a character that can be used to form words. All characters that are not “word characters” are “non-word characters”. 
+
+This works for the grep command.
+
+```swift
+$ grep "\bword\b" README.md
+```
+
+![Screen Shot 2021-05-16 at 22 49 13](https://user-images.githubusercontent.com/24994818/118430178-1b58fb80-b699-11eb-83b1-326f421f0d60.png)
+
+The exact list of characters is different for each regex flavor, but all word characters are always matched by the short-hand character class `\w`.
+
+![Screen Shot 2021-05-16 at 22 45 36](https://user-images.githubusercontent.com/24994818/118429917-73433280-b698-11eb-9ebe-70cb8455b8d5.png)
+
+All non-word characters are always matched by `\W`.
+
+![Screen Shot 2021-05-16 at 22 46 22](https://user-images.githubusercontent.com/24994818/118429953-8d7d1080-b698-11eb-8184-01620851efa4.png)
+
+In Perl and the other regex flavors discussed in this tutorial, there is only one metacharacter that matches both before a word and after a word. This is because any position between characters can never be both at the start and at the end of a word. Using only one operator makes things easier for you.
+
+Note that `\w` usually also matches digits. So `\b4\b` can be used to match a 4 that is not part of a larger number. This regex will not match “44 sheets of a4”. So saying "`\b` matches before and after an alphanumeric sequence“ is more exact than saying ”before and after a word". **This is useless for VIM**.
+
 #     * [Negated Word Boundary](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 #     * [Looking Inside the Regex Engine](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 #     * [Tcl Word Boundaries](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)

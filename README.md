@@ -262,11 +262,17 @@ Let's start experimenting our course by using this txt file.
 
 ```txt
 A prominent leaker has cast doubt on rumors that a 2020 iMac update will take place this week, instead suggesting that the product refresh is more likely to take place in August, though without any major redesigns.
+
 Over the weekend, a tweet from a relatively unknown leaker started circulating, putting forward the claim that Apple was preparing to launch a new iMac "this week." The tweet from @Soybeys also went further, suggesting the launch itself could happen earlier in the period, on the Monday.
+
 A second tweet from another leaker, @Jioriku, added to the iMac rumors by writing "The iMac redesign is not coming for this 10th-generation Intel refresh. They are saving it for their own silicon," referencing Apple Silicon.
+
 Late on Sunday, prominent leak reporter Jon Prosser dismissed the claimed launch this week with a single word attached to a screenshot of a headline reporting on the supposed launch: "Nope." In a second tweet, Prosser goes on to suggest it will be later, advising "If you want the new iMac, keep an eye out for August." 
+
 While there is some dispute over timing, there does seem to be a general belief that some form of product launch is on the way. On July 19, fellow prominent leaker @L0vetodream suggested "some products are ready to ship," without saying exactly what, while a mid-June DigiTimes report claimed new iMac and iPad models were destined for release in the second half of 2020.
+
 Despite being negative about the first of the two tweets, Prosser does seem to have backed up the second, ending one of his tweets with "No redesign." This seems to be fairly logical to deduce, as it would be expected for Apple to withhold any major design changes for a major update, such as the introduction of Apple Silicon.
+
 Icons found in an alleged iOS 14 build in June offered the suggestion Apple was redesigning the iMac to include a design that is reminiscent of an iPad Pro, complete with thinner bezels.
 ```
 
@@ -578,7 +584,7 @@ Similarly, `$` matches right after the last character in the string. `c$` matche
 
 #     * [Useful Applications for 6](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 
-When using regular expressions in a programming language to validate user input, using anchors is very important. If you use the code if ($input =~ m/\d+/) in a Perl script to see if the user entered an integer number, it will accept the input even if the user entered “qsdf4ghjk”, because «\d+» matches the 4. The correct regex to use is «^\d+$». Because “start of string” must be matched before the match of «\d+», and “end of string” must be matched right after it, the entire string must consist of digits for «^\d+$» to be able to match.
+When using regular expressions in a programming language to validate user input, using anchors is very important. If you use the code if ($input =~ m/\d+/) in a Perl script to see if the user entered an integer number, it will accept the input even if the user entered “qsdf4ghjk”, because `\d+` matches the 4. The correct regex to use is `^\d+$`. Because “start of string” must be matched before the match of `\d+`, and “end of string” must be matched right after it, the entire string must consist of digits for `^\d+$` to be able to match.
 
 If you apply it to VIM:
 
@@ -722,6 +728,9 @@ In Perl and the other regex flavors discussed in this tutorial, there is only on
 Note that `\w` usually also matches digits. So `\b4\b` can be used to match a 4 that is not part of a larger number. This regex will not match “44 sheets of a4”. So saying "`\b` matches before and after an alphanumeric sequence“ is more exact than saying ”before and after a word". **This is useless for VIM**.
 
 #     * [Negated Word Boundary](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
+
+`\B` is the negated version of `\b`. `\B` matches at every position where `\b` does not. Effectively, `\B` matches at any position between two word characters as well as at any position between two non-word characters.
+
 #     * [Looking Inside the Regex Engine](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 #     * [Tcl Word Boundaries](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 # 8. [Alternation with The Vertical Bar or Pipe Symbol](https://github.com/c4arl0s/RegularExpressions#8-alternation-with-the-vertical-bar-or-pipe-symbol)

@@ -732,6 +732,35 @@ Note that `\w` usually also matches digits. So `\b4\b` can be used to match a 4 
 `\B` is the negated version of `\b`. `\B` matches at every position where `\b` does not. Effectively, `\B` matches at any position between two word characters as well as at any position between two non-word characters.
 
 #     * [Looking Inside the Regex Engine](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
+
+Let’s see what happens when we apply the regex `\bis\b` to the string:
+
+```txt
+This island is beautiful.
+```
+
+The engine starts with the first token `\b` at the first character “T”. Since this token is zero-length, the position before the character is inspected. `\b` matches here, because the T is a word character and the character before it is the void before the start of the string. The engine continues with the next token: the literal `i`. The engine does not advance to the next character in the string, because the previous regex token was zero-width. `i` does not match “T”, so the engine retries the first token at the next character position.
+
+`\b` cannot match at the position between the “T” and the “h”. It cannot match between the “h” and the “i” either, and neither between the “i” and the “s”.
+
+The next character in the string is a space. `\b` matches here because the space is not a word character, and the preceding character is. Again, the engine continues with the `i` which does not match with the space.
+
+Advancing a character and restarting with the first regex token, `\b` matches between the space and the second “i” in the string. Continuing, the regex engine finds that `i` matches „i” and `s` matches „s”. Now, the engine tries to match the second `\b` at the position before the “l”. This fails because this position is between two word characters. The engine reverts to the start of the regex and advances one character to the “s” in “island”. Again, the `\b` fails to match and continues to do so until the second space is reached. It matches there, but matching the `i` fails.
+
+But `\b` matches at the position before the third “i” in the string. The engine continues, and finds that `i` matches „i” and `s` matches `s`. The last token in the regex, `\b`, also matches at the position before the second space in the string because the space is not a word character, and the character before it is.
+
+The engine has successfully matched the word „is” in our string, skipping the two earlier occurrences of the characters i and s. 
+
+Using grep: `grep "\bis\b" README.md`
+
+![Screen Shot 2021-05-17 at 23 44 40](https://user-images.githubusercontent.com/24994818/118591546-f2ed0200-b769-11eb-8339-922457878901.png)
+
+If we had used the regular expression `is`, it would have matched the „is” in “This”.
+
+Using grep: `grep "is" README.md`
+
+![Screen Shot 2021-05-17 at 23 45 47](https://user-images.githubusercontent.com/24994818/118591610-131cc100-b76a-11eb-9010-e79045e949d1.png)
+
 #     * [Tcl Word Boundaries](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 # 8. [Alternation with The Vertical Bar or Pipe Symbol](https://github.com/c4arl0s/RegularExpressions#8-alternation-with-the-vertical-bar-or-pipe-symbol)
 #     * [Remember That The Regex Engine Is Eager](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)

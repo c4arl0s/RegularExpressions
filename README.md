@@ -780,6 +780,37 @@ If your regex flavor supports lookahead and lookbehind, you can use `(?<!\w)(?=\
 If your flavor has lookahead but not lookbehind, and also has Perl-style word boundaries, you can use `\b(?=\w)` to emulate Tcl’s `\m` and `\b(?!\w)` to emulate `\M`. `\b` matches at the start or end of a word, and the lookahead checks if the next character is part of a word or not. If it is we’re at the start of a word. Otherwise, we’re at the end of a word.
 
 # 8. [Alternation with The Vertical Bar or Pipe Symbol](https://github.com/c4arl0s/RegularExpressions#8-alternation-with-the-vertical-bar-or-pipe-symbol)
+
+I already explained how you can use character classes to match a single character out of several possible characters. Alternation is similar. You can use alternation to match a single regular expression out of several possible regular expressions.
+
+If you want to search for the literal text `cat` or `dog`, separate both options with a vertical bar or pipe symbol: `cat|dog`. If you want more options, simply expand the list: `cat|dog|mouse|fish` .
+
+For VIM you have to scaped the vertical bar
+
+```console
+cat\|dog
+```
+
+Using grep:
+
+```console
+$ grep "\bcat\|dog\b" README.md
+```
+
+![Screen Shot 2021-05-18 at 0 05 54](https://user-images.githubusercontent.com/24994818/118593284-0cdc1400-b76d-11eb-8f74-6d1e490c3bef.png)
+
+The alternation operator has the lowest precedence of all regex operators. That is, it tells the regex engine to match either everything to the left of the vertical bar, or everything to the right of the vertical bar. If you want to limit the reach of the alternation, you will need to use round brackets for grouping. If we want to improve the first example to match whole words only, we would need to use `\b(cat|dog)\b`. 
+
+Using grep:
+
+```console
+$ grep "\bcat\b\|\bdog\b" README.md
+```
+
+![Screen Shot 2021-05-18 at 0 12 19](https://user-images.githubusercontent.com/24994818/118593828-f6828800-b76d-11eb-9a89-7d37a4cacdfd.png)
+
+This tells the regex engine to find a word boundary, then either “cat” or “dog”, and then another word boundary. If we had omitted the round brackets, the regex engine would have searched for “a word boundary followed by cat”, or, "dog followed by a word boundary.
+
 #     * [Remember That The Regex Engine Is Eager](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 # 9. [Optional Items](https://github.com/c4arl0s/RegularExpressions#9-optional-items)
 #     * [Important Regex Concept: Greediness](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)

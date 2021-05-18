@@ -762,6 +762,23 @@ Using grep: `grep "is" README.md`
 ![Screen Shot 2021-05-17 at 23 45 47](https://user-images.githubusercontent.com/24994818/118591610-131cc100-b76a-11eb-9010-e79045e949d1.png)
 
 #     * [Tcl Word Boundaries](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
+
+Word boundaries, as described above, are supported by all regular expression flavors described in in this book , except for the two POSIX RE flavors and the Tcl regexp command. POSIX does not support word boundaries at all. Tcl uses a different syntax.
+
+In Tcl, `\b` matches a backspace character, just like `\x08` in most regex flavors (including Tcl’s). `\B` matches a single backslash character in Tcl, just like `\\` in all other regex flavors (and Tcl too).
+
+Tcl uses the letter “y” instead of the letter “b” to match word boundaries. `\y` matches at any word boundary position, while `\Y` matches at any position that is not a word boundary. These Tcl regex tokens match exactly the same as `\b` and `\B` in Perl-style regex flavors. They don’t discriminate between the start and the end of a word.
+
+cl has two more word boundary tokens that do discriminate between the start and end of a word. `\m` matches only at the start of a word. That is, it matches at any position that has a non-word character to the left of it, and a word character to the right of it. It also matches at the start of the string if the first character in the string is a word character. `\M` matches only at the end of a word. It matches at any position that has a word character to the left of it, and a non-word character to the right of it. It also matches at the end of the string if the last character in the string is a word character.
+
+The only regex engine that supports Tcl-style word boundaries (besides Tcl itself) is the JGsoft engine. In PowerGREP and EditPad Pro, `\b` and `\B` are Perl-style word boundaries, and `\y`, `\Y`, `\m` and `\M` are Tcl-style word boundaries.
+
+In most situations, the lack of `\m` and `\M` tokens is not a problem. `\yword\y` finds “whole words only” occurrences of “word” just like `\mword\M` would. `\Mword\m` could never match anywhere, since `\M` never matches at a position followed by a word character, and `\m` never at a position preceded by one. If your regular expression needs to match characters before or after `\y`, you can easily specify in the regex whether these characters should be word characters or non-word characters. E.g. if you want to match any word, `\y\w+\y` will give the same result as `\m.+\M`. Using `\w` instead of the dot automatically restricts the first `\y` to the start of a word, and the second `\y` to the end of a word. Note that `\y.+\y` would not work. This regex matches each word, and also each sequence of non-word characters between the words in your subject string. That said, if your flavor supports `\m` and `\M`, the regex engine could apply `\m\w+\M` slightly faster than `\y\w+\y`, depending on its internal optimizations.
+
+If your regex flavor supports lookahead and lookbehind, you can use `(?<!\w)(?=\w)` to emulate Tcl’s `\m` and `(?<=\w)(?!\w)` to emulate `\M`. Though quite a bit more verbose, these lookaround constructs match exactly the same as Tcl’s word boundaries.
+
+If your flavor has lookahead but not lookbehind, and also has Perl-style word boundaries, you can use `\b(?=\w)` to emulate Tcl’s `\m` and `\b(?!\w)` to emulate `\M`. `\b` matches at the start or end of a word, and the lookahead checks if the next character is part of a word or not. If it is we’re at the start of a word. Otherwise, we’re at the end of a word.
+
 # 8. [Alternation with The Vertical Bar or Pipe Symbol](https://github.com/c4arl0s/RegularExpressions#8-alternation-with-the-vertical-bar-or-pipe-symbol)
 #     * [Remember That The Regex Engine Is Eager](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 # 9. [Optional Items](https://github.com/c4arl0s/RegularExpressions#9-optional-items)

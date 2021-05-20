@@ -37,7 +37,7 @@
     * [x] [Looking Inside the Regex Engine](https://github.com/c4arl0s/RegularExpressions#-looking-inside-the-regex-engine-2)
     * [x] [Tcl Word Boundaries](https://github.com/c4arl0s/RegularExpressions#-tcl-word-boundaries)
 8. [x] [8. Alternation with The Vertical Bar or Pipe Symbol](https://github.com/c4arl0s/RegularExpressions#8-alternation-with-the-vertical-bar-or-pipe-symbol)
-    * [ ] [Remember That The Regex Engine Is Eager](https://github.com/c4arl0s/RegularExpressions#-remember-that-the-regex-engine-is-eager)
+    * [x] [Remember That The Regex Engine Is Eager](https://github.com/c4arl0s/RegularExpressions#-remember-that-the-regex-engine-is-eager)
 9. [ ] [9. Optional Items](https://github.com/c4arl0s/RegularExpressions#9-optional-items)
     * [ ] [Important Regex Concept: Greediness](https://github.com/c4arl0s/RegularExpressions#-important-regex-concept-greediness)
     * [ ] [Looking Inside The Regex Engine](https://github.com/c4arl0s/RegularExpressions#-looking-inside-the-regex-engine-3)
@@ -812,6 +812,19 @@ $ grep "\bcat\b\|\bdog\b" README.md
 This tells the regex engine to find a word boundary, then either “cat” or “dog”, and then another word boundary. If we had omitted the round brackets, the regex engine would have searched for “a word boundary followed by cat”, or, "dog followed by a word boundary.
 
 #     * [Remember That The Regex Engine Is Eager](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
+
+I already explained that the regex engine is eager. It will stop searching as soon as it finds a valid match. The consequence is that in certain situations, the order of the alternatives matters. Suppose you want to use a regex to match a list of function names in a programming language: Get, GetValue, Set or SetValue. The obvious solution is `Get|GetValue|Set|SetValue`. Let’s see how this works out when the string is “SetValue”.
+
+The regex engine starts at the first token in the regex, `G`, and at the first character in the string, “S”. The match fails. However, the regex engine studied the entire regular expression before starting. So it knows that this regular expression uses alternation, and that the entire regex has not failed yet. So it continues with the second option, being the second `G` in the regex. The match fails again. The next token is the first `S` in the regex. The match succeeds, and the engine continues with the next character in the string, as well as the next token in the regex. The next token in the regex is the `e` after the `S` that just successfully matched. `e` matches „e”. The next token, `t` matches „t”.
+
+At this point, the third option in the alternation has been successfully matched. Because the regex engine is eager, it considers the entire alternation to have been successfully matched as soon as one of the options has. In this example, there are no other tokens in the regex outside the alternation, so the entire regex has successfully matched „Set” in “SetValue”.
+
+Contrary to what we intended, the regex did not match the entire string. There are several solutions. One option is to take into account that the regex engine is eager, and change the order of the options. If we use `GetValue|Get|SetValue|Set`, `SetValue` will be attempted before `Set`, and the engine will match the entire string. We could also combine the four options into two and use the question mark to make part of them optional: `Get(Value)?|Set(Value)?`. Because the question mark is greedy, `SetValue` will be attempted before `Set`.
+
+The best option is probably to express the fact that we only want to match complete words. We do not want to match Set or SetValue if the string is “SetValueFunction”. So the solution is `\b(Get|GetValue|Set|SetValue)\b` or `\b(Get(Value)?|Set(Value)?)\b`. Since all options have the same end, we can optimize this further to `\b(Get|Set)(Value)?\b` .
+
+All regex flavors discussed in this book work this way, except one: the POSIX standard mandates that the longest match be returned, regardless if the regex engine is implemented using an NFA or DFA algorithm.
+
 # 9. [Optional Items](https://github.com/c4arl0s/RegularExpressions#9-optional-items)
 #     * [Important Regex Concept: Greediness](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 #     * [Looking Inside The Regex Engine](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)

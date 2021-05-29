@@ -38,7 +38,7 @@
     * [x] [Tcl Word Boundaries](https://github.com/c4arl0s/RegularExpressions#-tcl-word-boundaries)
 8. [x] [8. Alternation with The Vertical Bar or Pipe Symbol](https://github.com/c4arl0s/RegularExpressions#8-alternation-with-the-vertical-bar-or-pipe-symbol)
     * [x] [Remember That The Regex Engine Is Eager](https://github.com/c4arl0s/RegularExpressions#-remember-that-the-regex-engine-is-eager)
-9. [ ] [9. Optional Items](https://github.com/c4arl0s/RegularExpressions#9-optional-items)
+9. [x] [9. Optional Items](https://github.com/c4arl0s/RegularExpressions#9-optional-items)
     * [ ] [Important Regex Concept: Greediness](https://github.com/c4arl0s/RegularExpressions#-important-regex-concept-greediness)
     * [ ] [Looking Inside The Regex Engine](https://github.com/c4arl0s/RegularExpressions#-looking-inside-the-regex-engine-3)
 10. [ ] [10. Repetition with Star and Plus](https://github.com/c4arl0s/RegularExpressions#10-repetition-with-star-and-plus)
@@ -826,6 +826,19 @@ The best option is probably to express the fact that we only want to match compl
 All regex flavors discussed in this book work this way, except one: the POSIX standard mandates that the longest match be returned, regardless if the regex engine is implemented using an NFA or DFA algorithm.
 
 # 9. [Optional Items](https://github.com/c4arl0s/RegularExpressions#9-optional-items)
+
+The question mark makes the preceding token in the regular expression optional. E.g.: «colou?r» matches both „colour” and „color”.
+
+![Screen Shot 2021-05-29 at 18 15 58](https://user-images.githubusercontent.com/24994818/120087015-f0fc3a80-c0a9-11eb-92e5-fd80fbc38ba2.png)
+
+You can make several tokens optional by grouping them together using round brackets, and placing the question mark after the closing bracket. E.g.: «Nov(ember)?» will match „Nov” and „November”.
+
+![Screen Shot 2021-05-29 at 18 18 13](https://user-images.githubusercontent.com/24994818/120087042-40426b00-c0aa-11eb-8697-4146d746d871.png)
+
+You can write a regular expression that matches many alternatives by including more than one question mark. «Feb(ruary)? 23(rd)?» matches „February 23rd”, „February 23”, „Feb 23rd” and „Feb 23”.
+
+![Screen Shot 2021-05-29 at 18 20 01](https://user-images.githubusercontent.com/24994818/120087073-826bac80-c0aa-11eb-9baa-147d9cd7e3a3.png)
+
 #     * [Important Regex Concept: Greediness](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 #     * [Looking Inside The Regex Engine](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 # 10. [Repetition with Star and Plus](https://github.com/c4arl0s/RegularExpressions#10-repetition-with-star-and-plus)

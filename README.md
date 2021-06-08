@@ -39,7 +39,7 @@
 8. [x] [8. Alternation with The Vertical Bar or Pipe Symbol](https://github.com/c4arl0s/RegularExpressions#8-alternation-with-the-vertical-bar-or-pipe-symbol)
     * [x] [Remember That The Regex Engine Is Eager](https://github.com/c4arl0s/RegularExpressions#-remember-that-the-regex-engine-is-eager)
 9. [x] [9. Optional Items](https://github.com/c4arl0s/RegularExpressions#9-optional-items)
-    * [ ] [Important Regex Concept: Greediness](https://github.com/c4arl0s/RegularExpressions#-important-regex-concept-greediness)
+    * [x] [Important Regex Concept: Greediness](https://github.com/c4arl0s/RegularExpressions#-important-regex-concept-greediness)
     * [ ] [Looking Inside The Regex Engine](https://github.com/c4arl0s/RegularExpressions#-looking-inside-the-regex-engine-3)
 10. [ ] [10. Repetition with Star and Plus](https://github.com/c4arl0s/RegularExpressions#10-repetition-with-star-and-plus)
     * [ ] [Limiting Repetition](https://github.com/c4arl0s/RegularExpressions#-limiting-repetition)
@@ -840,6 +840,17 @@ You can write a regular expression that matches many alternatives by including m
 ![Screen Shot 2021-05-29 at 18 20 01](https://user-images.githubusercontent.com/24994818/120087073-826bac80-c0aa-11eb-9baa-147d9cd7e3a3.png)
 
 #     * [Important Regex Concept: Greediness](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
+
+With the question mark, I have introduced the first metacharacter that is greedy. The question mark gives the regex engine two choices: try to match the part the question mark applies to, or do not try to match it. The engine will always try to match that part. Only if this causes the entire regular expression to fail, will the engine try ignoring the part the question mark applies to. 
+
+The effect is that if you apply the regex `Feb 23(rd)?` to the string “Today is Feb 23rd, 2003”, the match will always be „Feb 23rd” and not „Feb 23”. 
+
+![Screen Shot 2021-06-07 at 23 03 57](https://user-images.githubusercontent.com/24994818/121121167-b0589b80-c7e4-11eb-8375-3debb9935557.png)
+
+You can make the question mark lazy (i.e. turn off the greediness) by putting a second question mark after the first.
+
+> It does not work out for VIM, check it out.
+
 #     * [Looking Inside The Regex Engine](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)
 # 10. [Repetition with Star and Plus](https://github.com/c4arl0s/RegularExpressions#10-repetition-with-star-and-plus)
 #     * [Limiting Repetition](https://github.com/c4arl0s/RegularExpressions#regular-expression---content)

@@ -1,0 +1,27 @@
+[submodule "1.-Regular-Expression-Tutorial"]
+	path = 1.-Regular-Expression-Tutorial
+	url = git@github.com:c4arl0s/1.-Regular-Expression-Tutorial.git
+[submodule "2.-Literal-Characters"]
+	path = 2.-Literal-Characters
+	url = git@github.com:c4arl0s/2.-Literal-Characters.git
+[submodule "3.-First-Look-at-How-a-Regex-Engine-Works-Internally"]
+	path = 3.-First-Look-at-How-a-Regex-Engine-Works-Internally
+	url = git@github.com:c4arl0s/3.-First-Look-at-How-a-Regex-Engine-Works-Internally.git
+[submodule "4.-Character-Classes-or-Character-Sets"]
+	path = 4.-Character-Classes-or-Character-Sets
+	url = git@github.com:c4arl0s/4.-Character-Classes-or-Character-Sets.git
+[submodule "5.-The-Dot-Matches-Almost-Any-Character"]
+	path = 5.-The-Dot-Matches-Almost-Any-Character
+	url = git@github.com:c4arl0s/5.-The-Dot-Matches-Almost-Any-Character.git
+[submodule "6.-Start-of-String-and-End-of-String-Anchors"]
+	path = 6.-Start-of-String-and-End-of-String-Anchors
+	url = git@github.com:c4arl0s/6.-Start-of-String-and-End-of-String-Anchors.git
+[submodule "7.-Word-Boundaries"]
+	path = 7.-Word-Boundaries
+	url = git@github.com:c4arl0s/7.-Word-Boundaries.git
+[submodule "8.-Alternation-with-The-Vertical-Bar-or-Pipe-Symbol"]
+	path = 8.-Alternation-with-The-Vertical-Bar-or-Pipe-Symbol
+	url = git@github.com:c4arl0s/8.-Alternation-with-The-Vertical-Bar-or-Pipe-Symbol.git
+[submodule "9.-Optional-Items"]
+	path = 9.-Optional-Items
+	url = git@github.com:c4arl0s/9.-Optional-Items.git
